@@ -1,6 +1,6 @@
 import Instagram
 import logging
-from flask import Flask
+from flask import Flask, jsonify
 from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
@@ -42,11 +42,25 @@ def scrape():
     Instagram.scrape('lefrogfotografie')
     logger.info('...finished!')
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+# Returns a list of supported networks
+@app.route('/networks', methods=['GET'])
+def networks():
+    return jsonify({
+        'networks': [{
+            'name': 'instagram',
+            'href': '/profiles/instagram'
+        }]
+    })
 
-if __name__ == "__main__":
+# Endpoint for all known profiles on a given network
+@app.route('/profiles/<string:network>', methods=['GET'])
+def profiles(network):
+    return jsonify({
+        'href': '/profiles/' + network,
+        'names': ['lefrogfotografie']
+    })
+
+if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     scheduler.start()
     scheduler.add_job(scrape, 'interval', minutes=5)
