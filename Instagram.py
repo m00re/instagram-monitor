@@ -26,7 +26,8 @@ def scrape(profilename):
         user = data['entry_data']['ProfilePage'][0]['user']
         result['user_id'] = user['id']
         result['user_username'] = user['username']
-        result['follower_count'] = user['followed_by']['count']
+        result['follower'] = user['followed_by']['count']
+        result['follows'] = user['follows']['count']
         result['media'] = []
 
         for post in user['media']['nodes']:
