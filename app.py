@@ -5,30 +5,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
-# Database will have the following tables:
-#
-# profiles:
-#   id: number
-#   name: text
-#
-# profile_stats:
-#   timestamp: number
-#   followers: number
-#   posts: number
-#
-# posts:
-#   id: number
-#   creation: number
-#   thumbnail_src: text
-#   display_src: text
-#   is_video: number
-#   caption: text
-#
-# post_stats:
-#   timestamp: number
-#   comments: number
-#   likes: number
-
 logger = logging.getLogger('app')
 ch = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s %(levelname)s - %(name)s: %(message)s')
